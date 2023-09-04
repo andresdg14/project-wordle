@@ -9,15 +9,18 @@ function GuessForm() {
       window.alert(
         `Your word is ${guess.length} letters long, it needs to be 5`
       );
-    } else {
-      console.info({ guess });
-      setGuess('');
+      return;
     }
+    console.info({ guess });
+    setGuess('');
   }
   return (
     <form onSubmit={handleSubmit} className="guess-input-wrapper">
       <label htmlFor="guess-input">Enter guess:</label>
       <input
+        required
+        pattern="[a-zA-Z]{5}"
+        title="5 letter word"
         id="guess-input"
         type="text"
         value={guess}
