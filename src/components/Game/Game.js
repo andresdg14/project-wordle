@@ -1,12 +1,11 @@
 import React from 'react';
 import GuessForm from '../GuessForm/GuessForm';
 import GuessResults from '../GuessResults/GuessResults';
-import GameWin from '../GameWin/GameWin';
-import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
+import GameResultBanner from '../GameResultBanner/GameResultBanner';
 
+import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
 import { sample } from '../../utils';
 import { WORDS } from '../../data';
-import GameLose from '../GameLose/GameLose';
 
 // Pick a random word on every pageload.
 const answer = sample(WORDS);
@@ -30,17 +29,24 @@ function Game() {
     ) {
       setGameActive('lose');
     }
-    console.log(guessList.length);
   }
+
+  console.log(gameActive);
 
   return (
     <>
       <GuessResults guessList={guessList} answer={answer} />
-      {gameActive === 'on' && (
-        <GuessForm handleSubmitGuesses={handleSubmitGuesses} />
+      <GuessForm
+        handleSubmitGuesses={handleSubmitGuesses}
+        gameActive={gameActive}
+      />
+      {gameActive !== 'on' && (
+        <GameResultBanner
+          answer={answer}
+          attempts={guessList.length}
+          gameActive={gameActive}
+        />
       )}
-      {gameActive === 'lose' && <GameLose answer={answer} />}
-      {gameActive === 'win' && <GameWin attempts={guessList.length} />}
     </>
   );
 }

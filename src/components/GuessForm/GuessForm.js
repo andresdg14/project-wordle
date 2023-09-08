@@ -20,6 +20,7 @@ function GuessForm({ handleSubmitGuesses, gameActive }) {
 
       <input
         required
+        disabled={gameActive !== 'on'}
         pattern="[a-zA-Z]{5}"
         title="5 letter word"
         id="guess-input"
